@@ -22,12 +22,14 @@ function sha256(block, chain) {
 }
 
 function updateState(block, chain) {
-  // set the well background red or green for this block
-  if ($('#block'+block+'chain'+chain+'hash').val().substr(0, difficulty) === pattern) {
-    $('#block'+block+'chain'+chain+'well').removeClass('well-error').addClass('well-success');
-  }
-  else {
-    $('#block'+block+'chain'+chain+'well').removeClass('well-success').addClass('well-error');
+  if ($('#block'+block+'chain'+chain+'hash').length) {
+    // set the well background red or green for this block
+    if ($('#block'+block+'chain'+chain+'hash').val().substr(0, difficulty) === pattern) {
+      $('#block'+block+'chain'+chain+'well').removeClass('well-error').addClass('well-success');
+    }
+    else {
+      $('#block'+block+'chain'+chain+'well').removeClass('well-success').addClass('well-error');
+    }
   }
 }
 
@@ -40,8 +42,9 @@ function updateHash(block, chain) {
 function updateChain(block, chain) {
   // update all blocks walking the chain from this block to the end
   for (var x = block; x <= 5; x++) {
-    if (x > 1) {
-      $('#block'+x+'chain'+chain+'previous').val($('#block'+(x-1).toString()+'chain'+chain+'hash').val());
+    var b = $('#block'+x+'chain'+chain+'previous');
+    if (x > 1 && b.length) {
+      b.val($('#block'+(x-1).toString()+'chain'+chain+'hash').val());
     }
     updateHash(x, chain);
   }

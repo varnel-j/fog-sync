@@ -16,6 +16,7 @@ html
     link(rel='stylesheet', href='/stylesheets/lib/ladda-themeless.min.css')
     link(rel='stylesheet', href='/stylesheets/lib/ie10-viewport-bug-workaround.css')
     link(rel='stylesheet', href='/stylesheets/blockchain.css')
+    link(rel='stylesheet', href='/stylesheets/demo.css')
 
     script(src='/javascripts/lib/jquery.min.js')
     script(src='/javascripts/lib/bootstrap.min.js')
@@ -34,7 +35,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/') #{__('Blockchain Demo')}
+          a.navbar-brand(href='/home') #{__('Blockchain Demo')}
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav.navbar-right
             li(class={active: page === 'hash'})
@@ -49,5 +50,8 @@ html
               a(href='/tokens') #{__('Tokens')}
             li(class={active: page === 'coinbase'})
               a(href='/coinbase') #{__('Coinbase')}
+            li(class={active: page === 'Sync Log'})
+              a(href='/') #{__('Sync Log')}
+
 
     block content
