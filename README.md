@@ -75,3 +75,4 @@ In the production bitcoin blockchain, block `458091` has the hash digest
 ![](public/images/qr.png)
 
 Bitcoin greatfully accepted: `1K3NvcuZzVTueHW1qhkG2Cm3viRkh2EXJp`
+# fog-sync
