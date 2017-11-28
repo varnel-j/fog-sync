@@ -8,18 +8,30 @@ block content
   .container
     h1 Fork of Blockchain Demo
     h5 #{__('Distributed Fog Sync Log')}
-  .container.step0    
-    h2 Step 0
+  .container.step2    
+    h2 Step 2
     - var peers = {1: 'Fog A', 2: 'Fog B'}
     - each peer, chain in peers
       .col-xs-6
         h3 LOG - #{peer}
         ul.pki
           - var blocks = []
-          - blocks.push({block: 1, chain: chain, nonce: 139358, txs: [{value: '25.00', from: 'Darcy', to: 'Bingley'},{value: '4.27', from: 'Elizabeth', to: 'Jane'},{value: '19.22', from: 'Wickham', to: 'Lydia'},{value: '106.44', from: 'Lady Catherine de Bourgh', to: 'Collins'},{value: '6.42', from: 'Charlotte', to: 'Elizabeth'}], previous: '0000000000000000000000000000000000000000000000000000000000000000'})
-          - blocks.push({block: 2, chain: chain, nonce: 39207, txs: [{value: '97.67', from: 'Ripley', to: 'Lambert'},{value: '48.61', from: 'Kane', to: 'Ash'},{value: '6.15', from: 'Parker', to: 'Dallas'},{value: '10.44', from: 'Hicks', to: 'Newt'},{value: '88.32', from: 'Bishop', to: 'Burke'},{value: '45.00', from: 'Hudson', to: 'Gorman'},{value: '92.00', from: 'Vasquez', to: 'Apone'}], previous: '00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b'})
-          - blocks.push({block: 3, chain: chain, nonce: 13804, txs: [{value: '10.00', from: 'Emily', to: 'Jackson'},{value: '5.00', from: 'Madison', to: 'Jackson'},{value: '20.00', from: 'Lucas', to: 'Grace'}], previous: '000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0'})
-          - blocks.push({block: 4, chain: chain, nonce: 13804, txs: [{value: '10.00', from: 'Emily', to: 'Jackson'},{value: '5.00', from: 'Madison', to: 'Jackson'},{value: '20.00', from: 'Lucas', to: 'Grace'}], previous: '000078be183417844c14a9251ca246fb15df1074019873f5d85c1a6f4311d4e0'})
+
+          - var bsp1 = {nonce: {1: 30792, 0: 43171}, previous: '6f1db6a2970c7c20dcc53664e5850df7d8554c12c7fc06aaab0796e2c3937e8a'}
+          - var txn1 = [{value: '97.67', from: 'Ripley', to: 'Lambert'}, {value: '92.00', from: 'John', to: 'Lambert'}]
+          - var prev1 = "9e76bf06a64e48e24167b980c51e7c34b2bb6514927541e7907d7c96176dc7bc"
+          - var h1 = "0000d69a4e7d377b71251b337b912334c6586f6c3b519d3de82f9df080eb4eec"
+
+
+          - var txn2 = [{value: '97.67', from: 'Ripley', to: 'Lambert'},{value: '10.00', from: 'John', to: 'Apone'}]
+          - var h2 = "00007f9c6e5321469ba5f56931fa5dee24bd187fb838e7f9a88c045995c5131c"
+
+          - blocks.push({block: 2, chain: chain, nonce: 39207, txs: chain / 2 < 0 ? txn1 : txn2  , previous: '00000c52990ee86de55ec4b9b32beefd745d71675dc0eddfbc7b88336e2e296b'})
+
+          - var bsp2 = {nonce: {1: 36280, 0: 50550}, previous: {1: '00005c42a609f2a52699285222fef70cf1a6bcdd30f0da3e43bc7c011ebedf01', 0:'0000d540dfd9e14e56db99d7701d7ae1e1631b2bdb12438da45406cfa40bcd90'}, txn: {1: [{value: '97.67', from: 'Ripley', to: 'Lambert'},{value: '92.00', from: 'John', to: 'Lambert'},{value: '92.00', from: 'John', to: 'Apone'}], 0: [{value: '97.67', from: 'Ripley', to: 'Lambert'},{value: '92.00', from: 'John', to: 'Apone'}]}}
+
+          - blocks.push({block: 3, chain: chain, nonce: bsp1.nonce[chain % 2], txs: chain % 2 == 1 ? txn1 : txn2 , previous: bsp1.previous})
+          - blocks.push({block: 4, chain: chain, nonce: bsp2.nonce[chain % 2], txs: bsp2.txn[chain % 2], previous: bsp2.previous[chain % 2]})
           each block, index in blocks
             li.row.row-horizon
               div(class="log-step-"+chain+"-"+index)
